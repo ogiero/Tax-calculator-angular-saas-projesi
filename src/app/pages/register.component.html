@@ -1,0 +1,38 @@
+<div style="max-width:520px;margin:40px auto;padding:24px;border:1px solid var(--border);border-radius:12px;background:var(--surface-strong)">
+  <h2 style="margin:0 0 16px 0">Create an Account</h2>
+  <p style="color:var(--text-muted);margin:0 0 16px 0">Register with your email and a password.</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div>
+      <label for="first">First name</label>
+      <input id="first" type="text" [(ngModel)]="firstName" placeholder="John" style="width:100%;padding:8px;margin:6px 0 12px;border:1px solid var(--border);border-radius:8px;background:var(--surface-strong);color:var(--text)" />
+    </div>
+    <div>
+      <label for="last">Last name</label>
+      <input id="last" type="text" [(ngModel)]="lastName" placeholder="Doe" style="width:100%;padding:8px;margin:6px 0 12px;border:1px solid var(--border);border-radius:8px;background:var(--surface-strong);color:var(--text)" />
+    </div>
+  </div>
+
+  <label for="email">Email</label>
+  <input id="email" type="email" [(ngModel)]="email" placeholder="user@example.com" style="width:100%;padding:8px;margin:6px 0 12px;border:1px solid var(--border);border-radius:8px;background:var(--surface-strong);color:var(--text)" />
+
+  <label for="pass">Password</label>
+  <input id="pass" type="password" [(ngModel)]="password" placeholder="••••••" style="width:100%;padding:8px;margin:6px 0 12px;border:1px solid var(--border);border-radius:8px;background:var(--surface-strong);color:var(--text)" />
+
+  <label for="confirm">Confirm password</label>
+  <input id="confirm" type="password" [(ngModel)]="confirm" placeholder="••••••" style="width:100%;padding:8px;margin:6px 0 12px;border:1px solid var(--border);border-radius:8px;background:var(--surface-strong);color:var(--text)" />
+
+  @if (error()) {
+    <div style="color:#b91c1c;margin:8px 0 12px">{{ error() }}</div>
+  }
+
+  <button (click)="onRegister()" [disabled]="loading()" style="width:100%;padding:10px 12px;border-radius:8px;background:var(--brand);color:white;border:none">
+    {{ loading() ? 'Creating...' : 'Create Account' }}
+  </button>
+
+  <p style="margin:12px 0 0;color:var(--text-muted)">
+    Already have an account?
+    <a routerLink="/login">Sign in</a>
+  </p>
+</div>
+

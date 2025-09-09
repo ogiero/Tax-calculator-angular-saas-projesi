@@ -1,0 +1,22 @@
+<div style="max-width:420px;margin:40px auto;padding:24px;border:1px solid #e2e8f0;border-radius:12px">
+  <h2 style="margin:0 0 16px 0">Sign In</h2>
+  <p style="color:#64748b;margin:0 0 16px 0">Sign in with your email and password.</p>
+
+  <label for="email">Email</label>
+  <input id="email" type="email" [(ngModel)]="email" placeholder="user@example.com" style="width:100%;padding:8px;margin:6px 0 12px;border:1px solid #cbd5e1;border-radius:8px" />
+
+  <label for="password">Password</label>
+  <input id="password" type="password" [(ngModel)]="password" placeholder="••••••" style="width:100%;padding:8px;margin:6px 0 16px;border:1px solid #cbd5e1;border-radius:8px" />
+
+  @if (error()) {
+    <div style="color:#b91c1c;margin-bottom:12px">{{ error() }}</div>
+  }
+
+  <button (click)="signIn()" style="width:100%;padding:10px 12px;border-radius:8px;background:#0ea5e9;color:white;border:none">
+    Continue
+  </button>
+
+  <p style="margin:12px 0 0;color:#64748b">
+    Don’t have an account? <a routerLink="/register">Create one</a>
+  </p>
+</div>

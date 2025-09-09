@@ -1,0 +1,11 @@
+<div style="max-width:860px;margin:32px auto;padding:0 16px">
+  <h2 style="margin:0 0 12px">Hello, {{ user()?.email }}</h2>
+  <p style="color:#64748b;margin:0 0 16px">Plan: <strong>{{ user()?.plan | titlecase }}</strong></p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px">
+    <a routerLink="/calculator" style="display:block;border:1px solid #e2e8f0;border-radius:12px;padding:16px;text-decoration:none;color:inherit">
+      <h3 style="margin:0 0 8px">Tax Calculator</h3>
+      <p style="margin:0;color:#64748b">Net ↔ Gross calculations</p>
+    </a>
+  </div>
+</div>

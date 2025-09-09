@@ -1,0 +1,277 @@
+:host{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    padding: 2rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+
+:host{
+    background-image:
+        radial-gradient(1200px 600px at 10% -10%, rgba(212,34,60,0.10), transparent 60%),
+        radial-gradient(900px 500px at 110% 10%, rgba(20,120,190,0.08), transparent 60%),
+        radial-gradient(700px 400px at 50% 120%, rgba(255,179,0,0.08), transparent 60%),
+        repeating-linear-gradient(135deg, rgba(255,255,255,0.05) 0 2px, transparent 2px 8px);
+    animation: moveGradient 24s ease-in-out infinite alternate;
+}
+
+:host::before,
+:host::after{
+    content: "";
+    position: absolute;
+    inset: -20% -10% auto -10%;
+    height: 60vh;
+    border-radius: 9999px;
+    filter: blur(40px);
+    pointer-events: none;
+    z-index: 0;
+}
+:host::before{
+    background: radial-gradient(closest-side, rgba(212,34,60,0.18), transparent 70%);
+    transform: translate3d(-10%, -10%, 0);
+    animation: floatBlob 22s ease-in-out infinite;
+}
+:host::after{
+    background: radial-gradient(closest-side, rgba(20,120,190,0.18), transparent 70%);
+    right: -15%;
+    left: auto;
+    transform: translate3d(10%, -5%, 0);
+    animation: floatBlob 28s ease-in-out -4s infinite;
+}
+
+@keyframes moveGradient {
+    0% { background-position: 0% 0%, 100% 0%, 50% 100%, 0 0; }
+    100% { background-position: 20% 5%, 80% 10%, 50% 90%, 10px 10px; }
+}
+@keyframes floatBlob {
+    0% { transform: translate3d(0,0,0) scale(1); }
+    50% { transform: translate3d(2%, -3%, 0) scale(1.05); }
+    100% { transform: translate3d(0,0,0) scale(1); }
+}
+
+
+/* Removed old Calculator/global form styles from app.css to avoid duplication. */
+
+
+.option-group input[type="radio"]{ accent-color: #d4223c; }
+.option-group label{ cursor: pointer; }
+
+.input-section label{
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.input-section input{
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1.05rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background: #fff;
+}
+.input-section input:focus{
+    border-color: #d4223c;
+    box-shadow: 0 0 0 3px rgba(212,34,60,0.15);
+}
+
+.input-with-prefix{
+    position: relative;
+}
+.input-with-prefix .prefix{
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6b7280;
+    pointer-events: none;
+}
+.input-with-prefix input{
+    padding-left: 34px;
+}
+.hint{
+    display: block;
+    margin-top: 0.35rem;
+    color: #6b7280;
+    font-size: 0.85rem;
+}
+
+.button-group{
+    margin-top: 0.5rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.button-group button{
+    flex-grow: 1;
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.04s ease-in-out, filter 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+.button-group button:active{
+    transform: translateY(1px);
+}
+.button-group button::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.2), transparent 40%);
+    pointer-events: none;
+}
+
+.calculate-btn{
+    background-color: #D4223C;
+    color: white;
+}
+
+.calculate-btn:hover{
+    background-color: #b01b30;
+    filter: brightness(1.02);
+}
+
+.clear-btn {
+    background-color: #6c757d;
+    color:white;
+}
+
+.clear-btn:hover{
+    background-color: #5a6268;
+    filter: brightness(1.02);
+}
+
+.results-section{
+    padding: 1.5rem;
+}
+
+.results-section h2{
+    margin-top: 0;
+    border-bottom: 2px solid #D4223C;
+    padding-bottom: 0.5rem;
+}
+
+.results-section table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.results-section td{
+    padding: 0.9rem 0.25rem;
+    border-bottom: 1px solid #eee;
+}
+.results-section td.label{
+    color: #374151;
+}
+.results-section td.value{
+    text-align: right;
+    font-weight: 600;
+    color: #111827;
+}
+/* Calculator/component-specific styles now live in calculator.component.css */
+
+.brand-banner{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 1rem;
+    box-sizing: border-box;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.brand-title{
+    font-size: 4.5rem;
+    font-weight: 800;
+    color: #D4223C;
+    letter-spacing: -0.02em;
+    text-shadow: 0 4px 20px rgba(212, 34, 60, 0.3);
+    background: linear-gradient(135deg, #D4223C 0%, #b01b30 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: heroGlow 3s ease-in-out infinite alternate;
+}
+.brand-subtitle{ color: var(--text-muted); }
+
+nav a{ color: var(--text); opacity: 0.95; }
+nav a:hover{ opacity: 1; }
+
+.nav-contact{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 12px;
+    text-decoration: none;
+    color: var(--text);
+    opacity: 0.9;
+}
+.nav-contact svg{ width: 16px; height: 16px; display:block; }
+.nav-contact:hover{ opacity: 1; color: var(--brand); }
+
+:host-context([data-theme="dark"]) .brand-title{
+    text-shadow: 0 6px 30px rgba(212,34,60,0.7);
+}
+:host-context([data-theme="dark"]) .side-banner{
+    opacity: 0.28;
+    color: #e43a52;
+}
+.brand-subtitle{
+    font-size: 1.2rem;
+    color: #0b2a66;
+    margin-top: -1.5rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+@keyframes heroGlow {
+    0% { text-shadow: 0 4px 20px rgba(212, 34, 60, 0.3); }
+    100% { text-shadow: 0 6px 30px rgba(212, 34, 60, 0.5); }
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 3rem;
+    }
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+}
+
+.side-banner{
+    position: fixed;
+    top: 140px;
+    bottom: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-weight: 800;
+    letter-spacing: 2px;
+    font-size: 0.95rem;
+    color: #b01b30;
+    opacity: 0.18;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+}
+.side-banner.left{ left: 10px; }
+.side-banner.right{ right: 10px; transform: rotate(180deg); }
+
+@media (max-width: 1024px){
+  .side-banner{ display: none; }
+}

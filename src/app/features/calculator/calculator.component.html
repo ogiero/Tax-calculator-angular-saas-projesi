@@ -1,0 +1,79 @@
+<div class="Calculator-container">
+  <div class="Header">
+    <h1 class="header-title">Narpos Tax Calculator</h1>
+  </div>
+
+  <div class="content-grid">
+    <div class="Form-section">
+      <div class="options">
+        <div class="option-group">
+          <label class="group-title">Year</label>
+          <div class="radio-row">
+            <input type="radio" id="year2023" name="year" value="2023" [(ngModel)]="year">
+            <label for="year2023">2023</label>
+          </div>
+          <div class="radio-row">
+            <input type="radio" id="year2022" name="year" value="2022" [(ngModel)]="year">
+            <label for="year2022">2022</label>
+          </div>
+        </div>
+
+        <div class="option-group">
+          <label class="group-title">Calculation Direction</label>
+          <div class="segmented">
+            <button type="button" [class.active]="direction==='forward'" (click)="direction='forward'">Net → Gross</button>
+            <button type="button" [class.active]="direction==='backward'" (click)="direction='backward'">Gross → Net</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-section">
+        <label for="amountInput">{{direction==='forward'? 'Amount (before tax)':'Total (tax inclusive)'}}
+        </label>
+        <div class="input-with-prefix">
+          <span class="prefix">₵</span>
+          <input type="number" id="amountInput" [(ngModel)]="amount" placeholder="0,00" step="0.01">
+        </div>
+        <small class="hint">You can use comma or dot for decimals.</small>
+      </div>
+
+      <div class="button-group">
+        <button class="calculate-btn" (click)="onCalculate()">CALCULATE</button>
+        <button class="clear-btn" (click)="onClear()">CLEAR</button>
+      </div>
+    </div>
+
+    @if (result) {
+    <div class="results-section">
+      <h2>Calculation Result</h2>
+      <div class="chips">
+        <span class="chip">Year: {{ year }}</span>
+        <span class="chip">Direction: {{ direction==='forward' ? 'Net → Gross' : 'Gross → Net' }}</span>
+      </div>
+      <table>
+        <tr>
+          <td class="emphasis">Base Amount</td>
+          <td>{{ result.baseAmount | number:'1.2-2' }}</td>
+        </tr>
+        @if (year == 2022) {
+          <tr><td> TL Levy (1%)</td><td>{{ result.tlLevy | number:'1.2-2' }}</td></tr>
+          <tr><td> Combined Tax (6%)</td><td>{{ result.combinedTax | number:'1.2-2' }}</td></tr>
+          <tr><td> Amount Before VAT</td><td>{{ result.amountBeforeVat | number:'1.2-2' }}</td></tr>
+        }
+        @if (year == 2023) {
+          <tr><td> TL Levy (1%)</td><td>{{ (result.tlLevy ) | number:'1.2-2' }}</td></tr>
+          <tr><td> GETFund Levy (2.5%)</td><td>{{ (result.getFundLevy ) | number:'1.2-2' }}</td></tr>
+          <tr><td> COVID Levy (1%)</td><td>{{ (result.covidLevy ) | number:'1.2-2' }}</td></tr>
+          <tr><td> NHIL Levy (2.5%)</td><td>{{ result.nhil | number:'1.2-2' }}</td></tr>
+          <tr><td> Amount Before VAT</td><td>{{ result.amountBeforeVat | number:'1.2-2' }}</td></tr>
+        }
+        <tr><td>VAT</td><td>{{ result.vat | number:'1.2-2' }}</td></tr>
+        <tr class="total-row">
+          <td>Total Amount</td>
+          <td>{{ result.totalAmount | number:'1.2-2' }}</td>
+        </tr>
+      </table>
+    </div>
+    }
+  </div>
+</div>
