@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from '../core/auth.service';
+import { AuthService, Plan } from '../core/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -19,6 +19,7 @@ export class RegisterComponent {
   email = '';
   password = '';
   confirm = '';
+  plan: Plan = 'free';
   error = signal<string | null>(null);
   loading = signal(false);
 
@@ -42,7 +43,13 @@ export class RegisterComponent {
     }
     try {
       this.loading.set(true);
-      await this.auth.register(this.email.trim(), this.password, this.firstName.trim(), this.lastName.trim(), 'free');
+      await this.auth.register(
+        this.email.trim(),
+        this.password,
+        this.firstName.trim(),
+        this.lastName.trim(),
+        this.plan
+      );
       this.router.navigateByUrl('/dashboard');
     } catch (e: any) {
       this.error.set(e?.message ?? 'Registration failed. Please try again.');
@@ -51,4 +58,3 @@ export class RegisterComponent {
     }
   }
 }
-

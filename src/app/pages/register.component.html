@@ -16,6 +16,24 @@
   <label for="email">Email</label>
   <input id="email" type="email" [(ngModel)]="email" placeholder="user@example.com" style="width:100%;padding:8px;margin:6px 0 12px;border:1px solid var(--border);border-radius:8px;background:var(--surface-strong);color:var(--text)" />
 
+  <div style="margin:8px 0 12px">
+    <label style="display:block;margin-bottom:6px">Plan</label>
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      <label style="display:flex;align-items:center;gap:6px">
+        <input type="radio" name="plan" value="free" [(ngModel)]="plan" />
+        Free
+      </label>
+      <label style="display:flex;align-items:center;gap:6px">
+        <input type="radio" name="plan" value="pro" [(ngModel)]="plan" />
+        Pro
+      </label>
+      <label style="display:flex;align-items:center;gap:6px">
+        <input type="radio" name="plan" value="business" [(ngModel)]="plan" />
+        Business
+      </label>
+    </div>
+  </div>
+
   <label for="pass">Password</label>
   <input id="pass" type="password" [(ngModel)]="password" placeholder="••••••" style="width:100%;padding:8px;margin:6px 0 12px;border:1px solid var(--border);border-radius:8px;background:var(--surface-strong);color:var(--text)" />
 
@@ -35,4 +53,3 @@
     <a routerLink="/login">Sign in</a>
   </p>
 </div>
-

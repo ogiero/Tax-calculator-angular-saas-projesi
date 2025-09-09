@@ -1,6 +1,6 @@
 import { Injectable, signal, inject } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut as fbSignOut, onAuthStateChanged } from '@angular/fire/auth';
-import { Firestore, doc, setDoc, serverTimestamp } from '@angular/fire/firestore';
+import { Firestore, doc, setDoc, serverTimestamp, getDoc } from '@angular/fire/firestore';
 
 export type Plan = 'free' | 'pro' | 'business';
 
@@ -51,7 +51,13 @@ export class AuthService {
 
   async signInWithPassword(email: string, password: string) {
     const cred = await signInWithEmailAndPassword(this.afAuth, email, password);
-    const u: User = { email: cred.user.email ?? email, plan: this._user()?.plan ?? 'free' };
+    let plan: Plan = this._user()?.plan ?? 'free';
+    try {
+      const snap = await getDoc(doc(this.db, 'users', cred.user.uid));
+      const data = snap.data() as any;
+      plan = (data?.plan as Plan) ?? plan;
+    } catch {}
+    const u: User = { email: cred.user.email ?? email, plan };
     this._user.set(u);
     this.writeToStorage(u);
   }
@@ -73,10 +79,16 @@ export class AuthService {
 
   constructor() {
     try {
-      onAuthStateChanged(this.afAuth, (fbUser) => {
+      onAuthStateChanged(this.afAuth, async (fbUser) => {
         if (fbUser) {
           const current = this._user();
-          const u: User = { email: fbUser.email ?? current?.email ?? '', plan: current?.plan ?? 'free' };
+          let plan: Plan = current?.plan ?? 'free';
+          try {
+            const snap = await getDoc(doc(this.db, 'users', fbUser.uid));
+            const data = snap.data() as any;
+            plan = (data?.plan as Plan) ?? plan;
+          } catch {}
+          const u: User = { email: fbUser.email ?? current?.email ?? '', plan };
           this._user.set(u);
           this.writeToStorage(u);
         } else {
